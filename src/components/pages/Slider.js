@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTransition } from 'react-spring';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { SlideWrapper, Links, Title, Icons, AnimatedBox } from './styles';
 import { arrowRight2 } from 'react-icons-kit/icomoon/arrowRight2';
 import { arrowLeft2 } from 'react-icons-kit/icomoon/arrowLeft2';
 
-const First = ({pre, next}) => {
+const First = ({ pre, next }) => {
 
     return (
         <SlideWrapper position={1}>
@@ -20,7 +20,7 @@ const First = ({pre, next}) => {
     )
 }
 
-const Second = ({pre, next}) => {
+const Second = ({ pre, next }) => {
 
     return (
         <SlideWrapper position={2}>
@@ -35,7 +35,7 @@ const Second = ({pre, next}) => {
     )
 }
 
-const Third = ({pre, next}) => {
+const Third = ({ pre, next }) => {
 
     return (
         <SlideWrapper position={3}>
@@ -54,12 +54,13 @@ const Third = ({pre, next}) => {
 const Slider = () => {
     const [isNext, setIsNext] = useState(false);
     const location = useLocation();
-    console.log(isNext)
+    let { url } = useRouteMatch();
+    
     const transitions = useTransition(location, location => location.pathname, {
-        config: { duration: 300 }, 
-        from: { opacity: 0, transform:isNext ?  `translate3d(100%, 0, 0)` : `translate3d(-100%, 0, 0)` } ,
+        config: { duration: 300 },
+        from: { opacity: 0, transform: isNext ? `translate3d(100%, 0, 0)` : `translate3d(-100%, 0, 0)` },
         enter: { opacity: 1, transform: `translate3d(0%, 0, 0)` },
-        leave: { opacity: 0, transform: isNext ? `translate3d(-50%, 0, 0)` : `translate3d(50%, 0, 0)`}
+        leave: { opacity: 0, transform: isNext ? `translate3d(-50%, 0, 0)` : `translate3d(50%, 0, 0)` }
     });
 
     const handleNextOnCLick = () => {
@@ -72,16 +73,16 @@ const Slider = () => {
         transitions.map(({ item, props, key }) => (
             <AnimatedBox style={props} key={key}>
                 <Switch location={item}>
-                    <Route path="/slider/" exact >
+                    <Route path={`${url}/`} exact >
                         <First pre={handlePrevOnCLick} next={handleNextOnCLick} />
                     </Route>
-                    <Route path="/slider/1" >
+                    <Route path={`${url}/1`} >
                         <First pre={handlePrevOnCLick} next={handleNextOnCLick} />
                     </Route>
-                    <Route path="/slider/2" >
+                    <Route path={`${url}/2`} >
                         <Second pre={handlePrevOnCLick} next={handleNextOnCLick} />
                     </Route>
-                    <Route path="/slider/3" >
+                    <Route path={`${url}/3`} >
                         <Third pre={handlePrevOnCLick} next={handleNextOnCLick} />
                     </Route>
                 </Switch>
