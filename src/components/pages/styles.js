@@ -74,9 +74,10 @@ export const Item = styled(animated.div)`
   will-change: transform, opacity;
 `;
 export const Container = styled(animated.div)`
+  width:100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 1fr));
-  grid-auto-rows:40px;
+  grid-auto-rows:minmax(40px, 1fr);
   grid-gap: 25px;
   padding: 25px;
   background: white;
