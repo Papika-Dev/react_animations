@@ -12,6 +12,7 @@ const BookRating = ({ rating }) => {
     const dec = Math.round((rating - int) * 100);
     setIntRating(int);
     setDecRating(dec);
+    console.log(rating)
   }, [rating]);
 
   return (
@@ -21,6 +22,7 @@ const BookRating = ({ rating }) => {
           let offSet = false;
           if (intRating === (ind)) {
             offSet = true;
+            console.log(decRating)
           }
           return (
             <BookReadOnlyStars key={item}>
